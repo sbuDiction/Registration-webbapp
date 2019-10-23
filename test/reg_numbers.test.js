@@ -26,11 +26,16 @@ describe('Registration numbers test', () => {
   // eslint-disable-next-line no-undef
   beforeEach(async () => {
     await pool.query('DELETE FROM numbers;');
+    await pool.query('DELETE FROM towns;');
   });
 
   // eslint-disable-next-line no-undef
   it('Should able to add a plate numbers to database  ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('cape town', 'ca');
+    await reg_number_instance.add_town('newcastle', 'nn');
+    await reg_number_instance.add_town('bellvile', 'cy');
+    await reg_number_instance.add_town('parrow', 'cj');
     await reg_number_instance.add('CA 123 123');
     await reg_number_instance.add('CY 123 123');
     await reg_number_instance.add('NN 123 123');
@@ -42,6 +47,8 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that exist on the database ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('bellvile', 'cy');
+    await reg_number_instance.add_town('parrow', 'cj');
     await reg_number_instance.add('CY 123 123');
     await reg_number_instance.add('CJ 123 123');
 
@@ -51,6 +58,7 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that are from Bellvile ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('bellvile', 'cy');
     await reg_number_instance.add('CY 123 123');
     await reg_number_instance.add('CY 124 123');
     await reg_number_instance.add('CY 124 124');
@@ -60,6 +68,7 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that are from Cape Town ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('cape town', 'ca');
     await reg_number_instance.add('CA 123 123');
     await reg_number_instance.add('CA 124 123');
     await reg_number_instance.add('CA 124 124');
@@ -69,6 +78,7 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that are from Parrow ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('parrow', 'cj');
     await reg_number_instance.add('CJ 123 123');
     await reg_number_instance.add('CJ 124 123');
     await reg_number_instance.add('CJ 124 124');
@@ -78,6 +88,7 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that are from Newcastle ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('newcastle', 'nn');
     await reg_number_instance.add('NN 123 123');
     await reg_number_instance.add('NN 124 123');
     await reg_number_instance.add('NN 124 124');
@@ -87,6 +98,7 @@ describe('Registration numbers test', () => {
 
   it('Should able to add only plate numbers that are from Gauteng ', async () => {
     const reg_number_instance = Registration_numbers(pool);
+    await reg_number_instance.add_town('gauteng', 'gp');
     await reg_number_instance.add('123 123 GP');
     await reg_number_instance.add('124 123 GP');
     await reg_number_instance.add('124 124 GP');
@@ -97,6 +109,7 @@ describe('Registration numbers test', () => {
   describe('Registration filter test', () => {
     it('Should able to show only plate numbers that are from Gauteng ', async () => {
       const reg_number_instance = Registration_numbers(pool);
+      await reg_number_instance.add_town('gauteng', 'gp');
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CA 124 123');
       await reg_number_instance.add('124 124 GP');
@@ -106,6 +119,7 @@ describe('Registration numbers test', () => {
 
     it('Should able to show only plate numbers that are from Cape Town ', async () => {
       const reg_number_instance = Registration_numbers(pool);
+      await reg_number_instance.add_town('cape town', 'ca');
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CA 124 123');
       await reg_number_instance.add('124 124 GP');
@@ -115,6 +129,7 @@ describe('Registration numbers test', () => {
 
     it('Should able to show only plate numbers that are from Bellvile ', async () => {
       const reg_number_instance = Registration_numbers(pool);
+      await reg_number_instance.add_town('bellvile', 'cy');
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CY 124 123');
       await reg_number_instance.add('CY 124 124');
@@ -125,6 +140,7 @@ describe('Registration numbers test', () => {
 
     it('Should able to show only plate numbers that are from Parrow ', async () => {
       const reg_number_instance = Registration_numbers(pool);
+      await reg_number_instance.add_town('parrow', 'cj');
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CJ 124 123');
       await reg_number_instance.add('CJ 124 133');
@@ -135,6 +151,7 @@ describe('Registration numbers test', () => {
 
     it('Should able to show only plate numbers that are from Newcastle ', async () => {
       const reg_number_instance = Registration_numbers(pool);
+      await reg_number_instance.add_town('newcastle', 'nn');
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('NN 124 123');
       await reg_number_instance.add('NN 724 123');
@@ -143,7 +160,7 @@ describe('Registration numbers test', () => {
       assert.equal(2, plate_number.length);
     });
     describe('Registration reset test', () => {
-      it('Should able to show only plate numbers that are from Newcastle ', async () => {
+      it('Should able to reset the database and clear all reg numbers ', async () => {
         const reg_number_instance = Registration_numbers(pool);
         await reg_number_instance.add('123 123 GP');
         await reg_number_instance.add('NN 124 123');
@@ -157,6 +174,11 @@ describe('Registration numbers test', () => {
       it('Should able to add a new city to the database ', async () => {
         const reg_number_instance = Registration_numbers(pool);
         await reg_number_instance.add_town('sea point', 'cl');
+        await reg_number_instance.add_town('cape town', 'ca');
+        await reg_number_instance.add_town('vryheid', 'nv');
+        await reg_number_instance.add_town('durban', 'nd');
+        await reg_number_instance.add_town('nkandla', 'nka');
+        await reg_number_instance.add_town('mpumalanga', 'mp');
         const plate_number = await reg_number_instance.list_all_towns();
         assert.equal(6, plate_number.length);
       });
