@@ -5,38 +5,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Registration</title>
 </head>
 
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-12-sm">
-        <h1></h1>
-        <p>Welcome to {{title}}</p>
+
+    <div style="padding-left: 10%;" class="col-6-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 style="padding-left: 15%;">Add Town section</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <form action="/add_town" method="POST">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Add Town</span>
+                </div>
+                <input type="text" name="town_name" aria-label="First name" class="form-control" placeholder="town name"
+                  required>
+                <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="city_tag"
+                  aria-label="Last name" class="form-control" placeholder="city tag" required>
+              </div>
+              <div style="padding-top: 2%;padding-left:16%">
+                <button type="submit" class="btn btn-success">Add town</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
-    {{!-- input section --}}
-    <div class="row">
-      <div class="col-6-sm">
-        <form action="/add" method="POST">
-          <input type="text" class="form-control" name="reg_plate" placeholder="Registration-number" aria-label="Recipient's username"
-            aria-describedby="basic-addon2">
-          <div style="padding-top: 10%;">
-            <select class="custom-select custom-select-sm">
-              <option selected>Select Town</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+
+    {{!-- intersection --}}
+    <div style="padding-left: 20%;" class="col-6-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>{{title}}</h1>
           </div>
-          <div style="padding-top: 10%;">
-            <button type="submit" class="btn btn-success">Success</button>
+        </div>
+        {{!-- input section --}}
+        <div class="row">
+          <div class="col-6">
+            <form action="/add" method="POST">
+              <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="reg_plate"
+                placeholder="Registration-number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <div style="padding-top: 3%;">
+                <button type="submit" class="btn btn-success">Add plate number</button>
+              </div>
+            </form>
+            <form action="/filter" method="POST">
+              <div style="padding-top: 10%;">
+                <select class="custom-select custom-select-sm city" name="town">
+                  <option selected>Select Town</option>
+                  {{#each drop_down}}
+                  <option class="city" value="{{this.town_tag}}">{{this.town}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div style="padding-top: 3%;">
+                <button type="submit" class="btn btn-success town">Show</button>
+              </div>
+            </form>
           </div>
-        </form>
+          {{!-- <div style="padding-left: 12%;padding-bottom:%" id="plates_list" --}}
+            {{!-- class="col-12 justify-content-md-center plates_list"> --}}
+            {{!-- <div class="col-5"> --}}
+              <form action="/delete" method="get" onsubmit="return confirm('Are you sure you want to submit?');">
+                <div style="padding-top: 180%;">
+                  <button class=" btn btn-outline-danger" type="submit">
+                    Reset app
+                  </button>
+                </div>
+              </form>
+            {{!-- </div> --}}
+          {{!-- </div> --}}
+
+        </div>
+
+
+
       </div>
     </div>
   </div>
+
+
+
+  <div style="padding-left: 32%;" id="plates_list" class="col-12 justify-content-md-center plates_list">
+    <div class="container">
+      <div class="row">
+        <div class="col-5">
+          {{#plates}}
+          <li>{{plate_numbers}}</li>
+          {{/plates}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding-left: 32%" class="col-12 justify-content-md-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-5">
+          {{#each filter}}
+          <li>{{this}}</li>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

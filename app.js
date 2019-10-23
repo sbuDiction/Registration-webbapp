@@ -62,6 +62,10 @@ app.set('view engine', 'handlebars');
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.get('/', routes.index_route);
+app.post('/add', routes.add_route);
+app.post('/add_town', routes.town);
+app.post('/filter', routes.filter);
+app.get('/delete', routes.delete)
 
 
 app.listen(PORT, () => {
