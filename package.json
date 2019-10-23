@@ -2,8 +2,12 @@
   "name": "regitsrations-with-express",
   "version": "0.0.0",
   "private": true,
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "node_modules/mocha/bin/mocha"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
