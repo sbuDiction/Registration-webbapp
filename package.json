@@ -1,13 +1,13 @@
 {
   "name": "regitsrations-with-express",
   "version": "0.0.0",
-  "private": true,
   "main": "app.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha"
+    "test": "node_modules/mocha/bin/mocha",
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
