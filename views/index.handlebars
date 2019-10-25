@@ -61,9 +61,9 @@
             <form action="/filter" method="POST">
               <div style="padding-top: 10%;">
                 <select class="custom-select custom-select-sm city" name="town">
-                  <option selected>Select Town</option>
+                  <option selected value="0">Select Town</option>
                   {{#each drop_down}}
-                  <option class="city" value="{{this.town_tag}}">{{this.town}}</option>
+                  <option class="city" value="{{id}}">{{town}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -71,48 +71,35 @@
                 <button type="submit" class="btn btn-success town">Show</button>
               </div>
             </form>
+             <p style="padding-left: 10%;" class="errors">{{error_message}}</p>
+             <p style="padding-left: 10%;" class="success">{{success_messsage}}</p> 
           </div>
-          {{!-- <div style="padding-left: 12%;padding-bottom:%" id="plates_list" --}}
-            {{!-- class="col-12 justify-content-md-center plates_list"> --}}
-            {{!-- <div class="col-5"> --}}
-              <form action="/delete" method="get" onsubmit="return confirm('Are you sure you want to submit?');">
-                <div style="padding-top: 180%;">
-                  <button class=" btn btn-outline-danger" type="submit">
-                    Reset app
-                  </button>
-                </div>
-              </form>
-            {{!-- </div> --}}
-          {{!-- </div> --}}
-
+          <form action="/delete" method="get">
+            <div style="padding-top: 40%;">
+              <button class=" btn btn-outline-danger" type="submit">
+                Reset-plates
+              </button>
+            </div>
+          </form>
+          <br>
+          <form action="/delete_towns" method="get">
+            <div style="padding-top: 40%;padding-left:%">
+              <button class=" btn btn-outline-danger" type="submit">
+                Reset-towns
+              </button>
+            </div>
+          </form>
         </div>
-
-
-
       </div>
     </div>
   </div>
-
-
 
   <div style="padding-left: 32%;" id="plates_list" class="col-12 justify-content-md-center plates_list">
     <div class="container">
       <div class="row">
         <div class="col-5">
-          {{#plates}}
+          {{#each plates}}
           <li>{{plate_numbers}}</li>
-          {{/plates}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="padding-left: 32%" class="col-12 justify-content-md-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-5">
-          {{#each filter}}
-          <li>{{this}}</li>
           {{/each}}
         </div>
       </div>

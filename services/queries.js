@@ -19,6 +19,12 @@ module.exports = function Queries(pool) {
     const reset_data = await pool.query('DELETE FROM numbers');
     return reset_data.rows;
   }
+
+  async function reset_towns() {
+    const reset_data = await pool.query('DELETE FROM towns');
+    return reset_data.rows;
+  }
+  
   
   async function add_towns(town, tag) {
     await pool.query('INSERT INTO towns (town,town_tag) VALUES ($1,$2)', [town, tag]);
@@ -29,5 +35,6 @@ module.exports = function Queries(pool) {
     town: select_towns_table,
     clear: reset,
     add_town: add_towns,
+    clear_town: reset_towns,
   };
 };

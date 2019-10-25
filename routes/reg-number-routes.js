@@ -6,14 +6,14 @@
 require('../reg-numbers-manager/reg-function');
 
 module.exports = function (instance) {
-  //   const instance = Factory_function();
 
   async function index(req, res) {
     res.render('index', {
       title: 'Registration-Numbers',
       plates: await instance.get(),
       drop_down: await instance.list_all_towns(),
-      filter: instance.the_filter_list(),
+      error_message: instance.errors(),
+      success_messsage: instance.success(),
     });
   }
 
@@ -31,19 +31,27 @@ module.exports = function (instance) {
   }
 
   async function filter_for_town(req, res) {
-    await instance.filter(req.body.town);
-    res.redirect('/')
+    const starts = req.body.town;
+    await instance.filter(starts);
+    res.redirect('/');
   }
 
   async function reset(req, res) {
     await instance.delete();
     res.redirect('/');
   }
+
+  async function reset_towns(req, res) {
+    await instance.remove_towns();
+    res.redirect('/');
+  }
+
   return {
     index_route: index,
     add_route: add,
     town: add_town,
     filter: filter_for_town,
     delete: reset,
+    delete_towns: reset_towns,
   };
 };

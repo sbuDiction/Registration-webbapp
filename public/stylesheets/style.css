@@ -31,3 +31,13 @@ li {
 .hide {
   display: none;
 }
+
+.errors {
+  font-size: 19px;
+  color: rgb(255, 0, 0);
+}
+
+.success {
+  font-size: 19px;
+  color: rgb(9, 240, 9);
+}
