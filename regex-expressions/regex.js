@@ -13,9 +13,16 @@ module.exports = function Regex() {
     const test = regex.test(plate);
     return test;
   };
+
+  const town_tag_regex = tag =>{
+    const regex = /[A-Z]{2}/i;
+    const test = regex.test(tag)
+    return test;
+  }
   
   return {
     start: start_with_regex,
     ends: ends_with_regex,
+    tag: town_tag_regex,
   };
 };

@@ -52,8 +52,9 @@
         <div class="row">
           <div class="col-6">
             <form action="/add" method="POST">
-              <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="reg_plate"
-                placeholder="Registration-number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input data-toggle="tooltip" title="Example: CA 123 123" type="text"
+                onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Z]{2}\s[0-9]{3}\s[0-9]{3}" class="form-control" name="reg_plate"
+                placeholder="Registration-number" >
               <div style="padding-top: 3%;">
                 <button type="submit" class="btn btn-success">Add plate number</button>
               </div>
@@ -71,8 +72,8 @@
                 <button type="submit" class="btn btn-success town">Show</button>
               </div>
             </form>
-             <p style="padding-left: 10%;" class="errors">{{error_message}}</p>
-             <p style="padding-left: 10%;" class="success">{{success_messsage}}</p> 
+            <p style="padding-left: 10%;" class="errors">{{error_message}}</p>
+            <p style="padding-left: 10%;" class="success">{{success_messsage}}</p>
           </div>
           <form action="/delete" method="get">
             <div style="padding-top: 40%;">
