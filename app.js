@@ -30,8 +30,8 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/reg-number-routes');
 const reg_manager = require('./reg-numbers-manager/reg-function');
 
-const Instance = reg_manager(pool);
-const routes = indexRouter(Instance);
+const Instance_for_reg = reg_manager(pool);
+const routes = indexRouter(Instance_for_reg);
 
 app.use(cookieParser('secret'));
 app.use(

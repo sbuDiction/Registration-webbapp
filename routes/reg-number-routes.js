@@ -5,44 +5,44 @@
 /* eslint-disable camelcase */
 require('../reg-numbers-manager/reg-function');
 
-module.exports = function (instance) {
+module.exports = function (Instance_for_reg) {
 
   async function index(req, res) {
     res.render('index', {
       title: 'Registration-Numbers',
-      plates: await instance.get(),
-      drop_down: await instance.list_all_towns(),
-      error_message: instance.errors(),
-      success_messsage: instance.success(),
+      plates: await Instance_for_reg.get(),
+      drop_down: await Instance_for_reg.list_all_towns(),
+      error_message: Instance_for_reg.errors(),
+      success_messsage: Instance_for_reg.success(),
     });
   }
 
   async function add(req, res) {
     const reg_number = req.body.reg_plate;
-    await instance.add(reg_number);
+    await Instance_for_reg.add(reg_number);
     res.redirect('/');
   }
 
   async function add_town(req, res) {
     const town = req.body.town_name;
     const tag = req.body.city_tag;
-    await instance.add_town(town, tag);
+    await Instance_for_reg.add_town(town, tag);
     res.redirect('/');
   }
 
   async function filter_for_town(req, res) {
     const starts = req.body.town;
-    await instance.filter(starts);
+    await Instance_for_reg.filter(starts);
     res.redirect('/');
   }
 
   async function reset(req, res) {
-    await instance.delete();
+    await Instance_for_reg.delete();
     res.redirect('/');
   }
 
   async function reset_towns(req, res) {
-    await instance.remove_towns();
+    await Instance_for_reg.remove_towns();
     res.redirect('/');
   }
 

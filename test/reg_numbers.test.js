@@ -113,7 +113,8 @@ describe('Registration numbers test', () => {
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CA 124 123');
       await reg_number_instance.add('124 124 GP');
-      const plate_number = await reg_number_instance.filter('GP');
+      await reg_number_instance.filter('0');
+      const plate_number = await reg_number_instance.get()
       assert.equal(2, plate_number.length);
     });
 
@@ -123,7 +124,8 @@ describe('Registration numbers test', () => {
       await reg_number_instance.add('123 123 GP');
       await reg_number_instance.add('CA 124 123');
       await reg_number_instance.add('124 124 GP');
-      const plate_number = await reg_number_instance.filter('CA');
+      await reg_number_instance.filter('0');
+      const plate_number = await reg_number_instance.get()
       assert.equal(1, plate_number.length);
     });
 
@@ -134,7 +136,8 @@ describe('Registration numbers test', () => {
       await reg_number_instance.add('CY 124 123');
       await reg_number_instance.add('CY 124 124');
       await reg_number_instance.add('124 124 GP');
-      const plate_number = await reg_number_instance.filter('CY');
+      await reg_number_instance.filter('0');
+      const plate_number = await reg_number_instance.get()
       assert.equal(2, plate_number.length);
     });
 
@@ -145,7 +148,8 @@ describe('Registration numbers test', () => {
       await reg_number_instance.add('CJ 124 123');
       await reg_number_instance.add('CJ 124 133');
       await reg_number_instance.add('124 124 GP');
-      const plate_number = await reg_number_instance.filter('CJ');
+      await reg_number_instance.filter('0');
+      const plate_number = await reg_number_instance.get()
       assert.equal(2, plate_number.length);
     });
 
@@ -156,8 +160,9 @@ describe('Registration numbers test', () => {
       await reg_number_instance.add('NN 124 123');
       await reg_number_instance.add('NN 724 123');
       await reg_number_instance.add('124 124 GP');
-      const plate_number = await reg_number_instance.filter('NN');
-      assert.equal(2, plate_number.length);
+      await reg_number_instance.filter('0');
+      const plate_number = await reg_number_instance.get()
+      assert.equal(plate_number.length, 2);
     });
     describe('Registration reset test', () => {
       it('Should able to reset the database and clear all reg numbers ', async () => {
@@ -177,7 +182,7 @@ describe('Registration numbers test', () => {
         await reg_number_instance.add_town('cape town', 'ca');
         await reg_number_instance.add_town('vryheid', 'nv');
         await reg_number_instance.add_town('durban', 'nd');
-        await reg_number_instance.add_town('nkandla', 'nka');
+        await reg_number_instance.add_town('nkandla', 'ka');
         await reg_number_instance.add_town('mpumalanga', 'mp');
         const plate_number = await reg_number_instance.list_all_towns();
         assert.equal(6, plate_number.length);

@@ -53,8 +53,8 @@
           <div class="col-6">
             <form action="/add" method="POST">
               <input data-toggle="tooltip" title="Example: CA 123 123" type="text"
-                onkeyup="this.value = this.value.toUpperCase();" pattern="[A-Z]{2}\s[0-9]{3}\s[0-9]{3}" class="form-control" name="reg_plate"
-                placeholder="Registration-number" >
+                onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="reg_plate"
+                placeholder="Registration-number">
               <div style="padding-top: 3%;">
                 <button type="submit" class="btn btn-success">Add plate number</button>
               </div>
@@ -72,28 +72,40 @@
                 <button type="submit" class="btn btn-success town">Show</button>
               </div>
             </form>
-            <p style="padding-left: 10%;" class="errors">{{error_message}}</p>
-            <p style="padding-left: 10%;" class="success">{{success_messsage}}</p>
+
           </div>
-          <form action="/delete" method="get">
-            <div style="padding-top: 40%;">
-              <button class=" btn btn-outline-danger" type="submit">
-                Reset-plates
-              </button>
-            </div>
-          </form>
+
           <br>
-          <form action="/delete_towns" method="get">
-            <div style="padding-top: 40%;padding-left:%">
-              <button class=" btn btn-outline-danger" type="submit">
-                Reset-towns
-              </button>
-            </div>
-          </form>
+
         </div>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-6">
+      <form action="/delete" method="get">
+        <div style="padding-left: 80%;padding-top: %">
+          <button class=" btn btn-outline-danger" type="submit">
+            Reset-plates
+          </button>
+        </div>
+      </form>
+    
+    </div>
+    <div class="col-6">
+      <form action="/delete_towns" method="get">
+        <div style="padding-top: 0.2%;padding-right:%">
+          <button class=" btn btn-outline-danger" type="submit">
+            Reset-towns
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p style="padding-left: 28%;padding-top:1%" class="errors">{{error_message}}</p>
+  <p style="padding-left: 28%;" class="success">{{success_messsage}}</p>
 
   <div style="padding-left: 32%;" id="plates_list" class="col-12 justify-content-md-center plates_list">
     <div class="container">
